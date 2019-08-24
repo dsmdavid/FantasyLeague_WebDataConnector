@@ -46,7 +46,8 @@
     // Download the data
     // Andre's example "https://example-wdc-dataschool.andre347.now.sh/",
     myConnector.getData = function(table, doneCallback) {
-        $.getJSON("https://fantasy.premierleague.com/api/leagues-classic/76993/standings/?page_new_entries=1&page_standings=1&phase=1",
+        $.getJSON("https://wdc-api.dsmdavid.now.sh/api",
+//            "http://127.0.0.1:1234",
          function(resp) {
             var apiresult = resp.standings.results,
                 tableData = [];

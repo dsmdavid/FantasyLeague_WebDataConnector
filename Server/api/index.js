@@ -1,66 +1,35 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const https = require("https");
-
-const http = require("http");
-
-console.log("start after all const");
+const fetch = require("node-fetch");
 
 
 
-
-// enabling all cors requests
+// middleware to allow CORS requests from anywhere
 app.use(cors());
+// middleware for rendering JSON data
+app.use(express.json());
 
-/* New test */
-
-console.log("after object")
-
-const object = http.get("http://nodejs.org/dist/index.json", (res) => {
-  const { statusCode } = res;
-  const contentType = res.headers['content-type'];
-
-  let error;
-  if (statusCode !== 200) {
-    error = new Error('Request Failed.\n' +
-                      `Status Code: ${statusCode}`);
-  } else if (!/^application\/json/.test(contentType)) {
-    error = new Error('Invalid content-type.\n' +
-                      `Expected application/json but received ${contentType}`);
+// function that accepts a url param, resolves a promise to display json data
+const getData = async url => {
+  try {
+    const res = await fetch(url);
+    const json = await res.json();
+    return json;
+  } catch (error) {
+    return { response: `Yep, We got an error ${error}` };
   }
-  if (error) {
-    console.error(error.message);
-    // Consume response data to free up memory
-    res.resume();
-    return;
-  }
+};
 
-  res.setEncoding('utf8');
-  let rawData = '';
-  res.on('data', (chunk) => { rawData += chunk; });
-  res.on('end', () => {
-    try {
-      const parsedData = JSON.parse(rawData);
-      console.log(parsedData);
-    } catch (e) {
-      console.error(e.message);
-    }
-  });
-}).on('error', (e) => {
-  console.error(`Got error: ${e.message}`);
+app.get("*", async (req, res) => {
+  const url = `https://fantasy.premierleague.com/api/leagues-classic/76993/standings/`;
+
+  const apiData = await getData(url);
+  res.json(apiData);
 });
 
+//app.listen("1234", () => console.log("Wohoo, We got a server running on Localhost PORT 1234"));
 
 
-app.get("*", (req, res) => {
-  
-
-  res.json(object);
-});
-
-console.log("app.get");
 app.listen();
-
-console.log("listening")
 
