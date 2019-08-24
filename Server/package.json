@@ -1,0 +1,28 @@
+{
+  "name": "wdcapi",
+  "version": "1.0.0",
+  "description": "GetTILResultsForFantasyLeague",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon ./api/index.js",
+    "start": "nodemon ./api/index.js"
+  },
+  "keywords": [],
+  "author": "DavidSM",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dsmdavid/FantasyLeague_WebDataConnector.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dsmdavid/FantasyLeague_WebDataConnector/issues"
+  },
+  "homepage": "https://github.com/dsmdavid/FantasyLeague_WebDataConnector#readme",
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}
