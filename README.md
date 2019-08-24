@@ -7,3 +7,7 @@ Shamelessly ~~stealing~~ learning from [Andre347's](https://github.com/andre347/
 2. I was unable to query the FPL Api directly (CORS error), so Andre347 graciously showed me how to [set up my own server](https://github.com/andre347/CORS-Server-WDC).
 3. Finally, deployed to Zeit, and it seems to be working!
  
+
+## Calling the WDC in Tableau:
+1. Open Tableau > Connect to Data > Web Data Connector
+2. Copy the url https://fantasyleaguewebdataconnector.dsmdavid.now.sh/WDC/FantasyLeague.html and click the download button
