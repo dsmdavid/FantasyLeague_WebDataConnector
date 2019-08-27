@@ -14,10 +14,10 @@ def home():
     session = requests.session()
     url = 'https://users.premierleague.com/accounts/login/'
     payload = {
-     'password': 'dsmdavid@gmail.com',
-     'login': 'dasdasdvd',
-     'redirect_uri': 'https://fantasy.premierleague.com/a/login',
-     'app': 'plfpl-web'
+            'password': 'my_1st_FPL_password',
+            'login': 'dsmdavid@gmail.com',
+            'redirect_uri': 'https://fantasy.premierleague.com/a/login',
+            'app': 'plfpl-web'
     }
     session.post(url, data=payload)
 #    r = requests.get('http://dummy.restapiexample.com/api/v1/employees', headers={"User-Agent": "XY"})
