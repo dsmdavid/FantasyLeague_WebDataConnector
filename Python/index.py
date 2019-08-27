@@ -15,7 +15,7 @@ def home():
     url = 'https://users.premierleague.com/accounts/login/'
     payload = {
             'password': 'my_1st_FPL_password',
-            'login': 'dsmdavid@gmail.com',
+            'login': 'dsmdavid.uk@gmail.com',
             'redirect_uri': 'https://fantasy.premierleague.com/a/login',
             'app': 'plfpl-web'
     }
