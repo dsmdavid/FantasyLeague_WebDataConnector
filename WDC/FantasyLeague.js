@@ -46,7 +46,9 @@
     // Download the data
     // Andre's example "https://example-wdc-dataschool.andre347.now.sh/",
     myConnector.getData = function(table, doneCallback) {
-        $.getJSON("https://wdc-api.dsmdavid.now.sh/api",
+        $.getJSON("https://python.dsmdavid.now.sh/",
+
+//       $.getJSON("https://wdc-api.dsmdavid.now.sh/api",
 //            "http://127.0.0.1:1234",
          function(resp) {
             var apiresult = resp.standings.results,
