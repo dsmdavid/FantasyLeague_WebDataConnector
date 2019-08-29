@@ -1,9 +1,9 @@
-(function() {
+(function () {
     // Create the connector object
     var myConnector = tableau.makeConnector();
     console.log("Connector created");
     // Define the schema
-    myConnector.getSchema = function(schemaCallback) {
+    myConnector.getSchema = function (schemaCallback) {
         var cols = [{
             id: "id",
             dataType: tableau.dataTypeEnum.int
@@ -28,9 +28,9 @@
             alias: "TotalPoints",
             dataType: tableau.dataTypeEnum.int
         }
-    
-    ];
-    console.log("Cols created");
+
+        ];
+        console.log("Cols created");
 
 
         var tableSchema = {
@@ -45,42 +45,55 @@
 
     // Download the data
     // Andre's example "https://example-wdc-dataschool.andre347.now.sh/",
-    myConnector.getData = function(table, doneCallback) {
-        $.getJSON("https://python.dsmdavid.now.sh/",
+    myConnector.getData = function (table, doneCallback) {
+        var authStr = tableau.connectionData;
+        var league = authStr['league']
 
-//       $.getJSON("https://wdc-api.dsmdavid.now.sh/api",
-//            "http://127.0.0.1:1234",
-         function(resp) {
-            var apiresult = resp.standings.results,
-                tableData = [];
-            console.log("Before loop")
-            // Iterate over the JSON object
-            for (var i = 0, len = apiresult.length; i < len; i++) {
-                tableData.push({
-                    "id": apiresult[i].id,
-                    "playerName": apiresult[i].player_name,
-                    "rank": apiresult[i].rank,
-                    "entryName": apiresult[i].entry_name,
-                    "eventTotal": apiresult[i].event_total,
-                    "total": apiresult[i].total
+        $.post("https://python.dsmdavid.now.sh/", authStr, /* function(data, textStatus) {
 
-                });
-                console.log("in loop");
-                console.log(i);
-            }
+        $.post("http://127.0.0.1:5000/", authStr, /* function(data, textStatus) {
+        //data contains the JSON object
+        //textStatus contains the status: success, error, etc */
+            function (resp, textStatus) {
+                var apiresult = resp.standings.results,
+                    tableData = [];
+                console.log("Before loop")
+                // Iterate over the JSON object
+                for (var i = 0, len = apiresult.length; i < len; i++) {
+                    tableData.push({
+                        "id": apiresult[i].id,
+                        "playerName": apiresult[i].player_name,
+                        "rank": apiresult[i].rank,
+                        "entryName": apiresult[i].entry_name,
+                        "eventTotal": apiresult[i].event_total,
+                        "total": apiresult[i].total
 
-            table.appendRows(tableData);
-            doneCallback();
-        });
+                    });
+                    console.log("in loop");
+                    console.log(i);
+                }
+                table.appendRows(tableData);
+                doneCallback();
+            }, "json");
     };
-
     tableau.registerConnector(myConnector);
-
     // Create event listeners for when the user submits the form
-    $(document).ready(function() {
-        $("#submitButton").click(function() {
+    $(document).ready(function () {
+        $("#submitButton").click(function () {
+            var authentObj = {
+                username: document.getElementById('username_id').value,
+                // $('#username'),//.val().trim(),
+                password: document.getElementById('pwd_id').value,//$('#pwd')//.val().trim(),
+                league: document.getElementById('league_id').value
+            };
+
+            //console.log(authentObj)
+
+
+            tableau.connectionData = JSON.stringify(authentObj);
             tableau.connectionName = "TILLEAGUE"; // This will be the data source name in Tableau
             tableau.submit(); // This sends the connector object to Tableau
         });
     });
+
 })();
